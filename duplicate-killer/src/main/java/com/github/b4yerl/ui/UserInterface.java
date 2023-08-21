@@ -1,5 +1,6 @@
 package com.github.b4yerl.ui;
 
+import com.github.b4yerl.file.FileScanner;
 import com.github.b4yerl.file.PathValidator;
 
 public class UserInterface {
@@ -19,15 +20,12 @@ public class UserInterface {
                 """;
         System.out.println(menu);
 
-        boolean isValid = false;
-        while(!isValid) {
+        while(true) {
             System.out.print("Input: ");
             String path = InputHandler.getInput();
-            isValid = PathValidator.isValidPath(path);
+            boolean isValid = PathValidator.isValidPath(path);
             if(!isValid) System.out.println("*************\\\\INVALID PATH//*************");
-            else System.out.println("Everything worked fine for path " + path);
+            else { FileScanner.scanDirectory(path); break; }
         }
-
-        // FileScanner.scan(path)
     }
 }
