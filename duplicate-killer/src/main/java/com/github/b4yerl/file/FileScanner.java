@@ -1,5 +1,6 @@
 package com.github.b4yerl.file;
 
+import com.github.b4yerl.ui.UserInterface;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 public class FileScanner {
 
-    private static final Map<byte[], String> uniqueFiles;
+    private static final Map<String, String> uniqueFiles;
 
     static {
         uniqueFiles = new HashMap<>();
@@ -25,12 +26,16 @@ public class FileScanner {
     private static void scan(File[] files) {
         for(File f : files) {
             if(f.isDirectory()) scanDirectory(f.getPath());
-            try {
-                byte[] fileBytes = Files.readAllBytes(Paths.get(f.getPath()));
-                if(!uniqueFiles.containsKey(fileBytes)) uniqueFiles.put(fileBytes, f.getAbsolutePath());
-                else System.out.println("IM CALLING THE KIRA FOR YOU " + f.getPath());
-            } catch(IOException e) {
-                e.printStackTrace();
+            else {
+                try {
+                    byte[] fileBytes = Files.readAllBytes(Paths.get(f.getPath()));
+                    String fileContent = new String(fileBytes);
+                    if(!uniqueFiles.containsKey(fileContent)) uniqueFiles.put(fileContent, f.getAbsolutePath());
+                    else UserInterface.removeUI(f.getAbsolutePath(), uniqueFiles.get(fileContent));
+                } catch (IOException e) {
+                    System.out.println("An error occurred while reading " + f.getPath());
+                    System.out.println("Error message: " + e.getMessage());
+                }
             }
         }
     }
