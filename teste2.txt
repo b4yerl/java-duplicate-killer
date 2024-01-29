@@ -1,0 +1,13 @@
+
+NASDAQ: GOOG
+«Perfil da empresa» 
+
+
+(eu não faço ideia de onde saiu o texto de cima, acho que o vim tem um cache persistente de cntrl+C)
+
+
+
+
+
+
+Segunda alteração só para gerar mais um commit e eu poder juntar com os outros 2, como pede o exercicio... 
